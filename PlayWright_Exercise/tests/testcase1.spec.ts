@@ -16,10 +16,12 @@ test("Verify users can buy an item successfully", async ({ page }) => {
 
     await homePage.electronic.click();
 
-    await shoppingPage.switchView('Grid')
+    await shoppingPage.switchView('Grid');
     await expect(shoppingPage.gridviewSwitch).toHaveAttribute('class', /.*active/);
 
-    await shoppingPage.switchView('List')
+    await page.waitForTimeout(2000);
+    await shoppingPage.switchView('List');
+
     await expect(shoppingPage.listviewSwitch).toHaveAttribute('class', /.*active/);
 
     await shoppingPage.addToCart('Canon i-SENSYS LBP6030W');
