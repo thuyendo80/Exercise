@@ -21,14 +21,13 @@ test("Verify users can buy an item successfully", async ({ page }) => {
 
     await page.waitForTimeout(2000);
     await shoppingPage.switchView('List');
-
     await expect(shoppingPage.listviewSwitch).toHaveAttribute('class', /.*active/);
 
     await shoppingPage.addToCart('Canon i-SENSYS LBP6030W');
 
     await homePage.cart.click();
 
-    //await expect(shoppingPage.itemRow.locator('td').nth(1).textContent
+    await expect(shoppingPage.itemRow.filter({ hasText: 'Canon i-SENSYS LBP6030W' })).toBeVisible();
 
     await checkOutPage.proceedToCheckOut.click();
 
@@ -39,5 +38,5 @@ test("Verify users can buy an item successfully", async ({ page }) => {
     await expect(page.getByText('Thank you. Your order has been received.')).toBeVisible({ timeout: 20000 });
     await expect(page.getByText('Citi Bank')).toBeVisible();
     await expect(page.getByText('1234567890')).toBeVisible();
-    await expect(page.getByRole('cell', { name: 'Canon i-SENSYS LBP6030W with' })).toBeVisible();
+    await expect(page.getByRole('row').filter({ hasText: 'Canon i-SENSYS LBP6030W' })).toBeVisible();
 });

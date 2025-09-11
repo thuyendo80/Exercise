@@ -12,11 +12,11 @@ export class ShoppingPage {
         this.listviewSwitch = page.locator('.switch-list');
         //this.listview = page.getByRole('link', { name: ' List' })
 
-        this.itemTable = page.getByRole('table');
-        this.itemRow = this.itemTable.getByRole('row');
+        this.itemTable = page.getByRole('table').nth(2);
+        this.itemRow = page.getByRole('row');
     }
 
-    async switchView(view: string) {
+    async switchView(view: 'Grid' | 'List') {
         console.log(view);
         if (view === 'Grid') {
             this.gridviewSwitch.click();
