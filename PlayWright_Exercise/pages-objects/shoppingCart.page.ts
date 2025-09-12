@@ -16,10 +16,13 @@ export class ShoppingCart {
     }
 
     async clearShoppingCart() {
-        const counts = this.itemTable.getByRole('row').count;
+        await expect(this.page).toHaveTitle(/Cart/);
+        await this.page.waitForTimeout(10000);
+        const removeButtons = await this.itemTable.getByRole('link', { name: 'Remove' }).all();
 
-        for (let i = +counts; i > 0; i--) {
-            await this.itemTable.getByRole('row').nth(i).getByRole('link', { name: 'Remove' }).click();
+        for (const remove of removeButtons) {
+            await remove.click();
         }
+        //await this.itemTable.getByRole('row').nth(2).getByRole('link', { name: 'Remove' }).click();
     }
 }

@@ -48,33 +48,6 @@ export class CheckOutPage {
         this.notes = page.getByRole('textbox', { name: 'Order notes (optional)' });
     }
 
-    async fillBilling(firstname: string, lastname: string, country: string, streetaddress: string, city: string, email: string, phone: string, zipcode?: string, company?: string, apartment?: string, notes?: string) {
-        await this.firstName.fill(firstname);
-        await this.lastName.fill(lastname);
-        await this.country.click();
-        await this.page.getByRole('option', { name: country }).click();
-        //await checkOut.country.selectOption('Vietnam');
-        await this.streetAddress.fill(streetaddress);
-        await this.city.fill(city);
-        await this.phone.fill(phone);
-        await this.email.fill(email);
-
-        //Optional
-        if (zipcode) {
-            await this.zipCode.fill(zipcode);
-        }
-        if (company) {
-            await this.company.fill(company);
-        }
-        if (apartment) {
-            await this.apartment.fill(apartment);
-        }
-        if (notes) {
-            await this.notes.fill(notes);
-        }
-        await this.placeOrder.click();
-    }
-
     async fillBillingDetails(billinginfo: BillingInfo) {
         await this.firstName.fill(billinginfo.firstname);
         await this.lastName.fill(billinginfo.lastname);

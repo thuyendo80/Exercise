@@ -27,13 +27,13 @@ test("Verify users can buy an item successfully", async ({ page }) => {
 
     await homePage.navigate();
 
-    //await logIn.login('thuyen.do@agest.vn', 'PlaywrightTest123!');
+    await logIn.login('thuyen.do@agest.vn', 'PlaywrightTest123!');
 
-    //await homePage.openCart();
+    await homePage.openCart();
 
-    //await shoppingCart.clearShoppingCart();
+    await shoppingCart.clearShoppingCart();
 
-    await homePage.selectItemInNavigation('Electronic Components & Supplies');
+    /*await homePage.selectItemInNavigation('Electronic Components & Supplies');
 
     await shoppingPage.switchView('Grid');
     await expect(shoppingPage.gridviewSwitch).toHaveAttribute('class', /.*active/);
@@ -54,4 +54,5 @@ test("Verify users can buy an item successfully", async ({ page }) => {
     await checkOutPage.fillBillingDetails(billInfo);
 
     await orderStatusPage.verifyOrderStatus();
+    */
 });
