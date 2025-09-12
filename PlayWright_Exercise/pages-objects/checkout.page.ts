@@ -15,7 +15,6 @@ export interface BillingInfo {
 }
 
 export class CheckOutPage {
-    readonly proceedToCheckOut: Locator;
     readonly firstName: Locator;
     readonly lastName: Locator;
     readonly country: Locator;
@@ -32,7 +31,6 @@ export class CheckOutPage {
     readonly notes: Locator;
 
     constructor(private page: Page) {
-        this.proceedToCheckOut = page.getByRole('link', { name: 'Proceed to checkout' });
         this.firstName = page.getByRole('textbox', { name: 'First name *' });
         this.lastName = page.getByRole('textbox', { name: 'Last name *' });
         this.country = page.getByRole('combobox', { name: 'Country / Region' });
@@ -75,10 +73,6 @@ export class CheckOutPage {
             await this.notes.fill(notes);
         }
         await this.placeOrder.click();
-    }
-
-    async proceedToCheckout() {
-        await this.proceedToCheckOut.click();
     }
 
     async fillBillingDetails(billinginfo: BillingInfo) {

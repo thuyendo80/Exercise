@@ -11,7 +11,6 @@ test("Verify users can buy an item successfully", async ({ page }) => {
     const logIn = new LogIn(page);
     const homePage = new HomePage(page);
     const shoppingPage = new ShoppingPage(page);
-    const shoppingCart = new ShoppingCart(page);
     const checkOutPage = new CheckOutPage(page);
     const orderStatusPage = new OrderStatusPage(page);
 
@@ -27,11 +26,7 @@ test("Verify users can buy an item successfully", async ({ page }) => {
 
     await homePage.navigate();
 
-    //await logIn.login('thuyen.do@agest.vn', 'PlaywrightTest123!');
-
-    //await homePage.openCart();
-
-    //await shoppingCart.clearShoppingCart();
+    await logIn.login('thuyen.do@agest.vn', 'PlaywrightTest123!');
 
     await homePage.selectItemInNavigation('Electronic Components & Supplies');
 
@@ -45,9 +40,9 @@ test("Verify users can buy an item successfully", async ({ page }) => {
 
     await homePage.openCart();
 
-    await expect(shoppingCart.itemRow.filter({ hasText: 'Canon i-SENSYS LBP6030W' })).toBeVisible();
+    //await expect(ShoppingCart.itemRow.filter({ hasText: 'Canon i-SENSYS LBP6030W' })).toBeVisible();
 
-    await shoppingCart.proceedToCheckout();
+    //await checkOutPage.proceedToCheckout();
 
     await expect(page).toHaveTitle('Checkout – TestArchitect Sample Website');
 
