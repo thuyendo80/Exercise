@@ -61,5 +61,9 @@ export class CheckOutPage {
         }
         await this.placeOrder.click();
     }
+
+    async proceedToCheckout() {
+        await this.proceedToCheckOut.click();
+    }
 }
 

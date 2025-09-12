@@ -18,4 +18,21 @@ export class HomePage {
         await this.page.goto("https://demo.testarchitect.com/");
         await this.closeButton.click();
     }
+
+    async selectItemInNavigation(item: string) {
+        const items = item.split('/');
+        const counts = items.length;
+
+        await this.alldepartment.click();
+        await this.alldepartment.click();
+
+        for (let i = 0; i < counts; i++) {
+            let regex: RegExp = new RegExp(items[i]);
+            await this.page.getByRole('link', { name: regex }).click();
+        }
+    }
+
+    async openCart() {
+        await this.cart.click();
+    }
 }

@@ -18,10 +18,10 @@ export class ShoppingPage {
 
     async switchView(view: 'Grid' | 'List') {
         if (view === 'Grid') {
-            await this.page.waitForTimeout(1000);
+            await this.page.waitForTimeout(2000);
             await this.gridviewSwitch.click();
         } else {
-            await this.page.waitForTimeout(1000);
+            await this.page.waitForTimeout(2000);
             await this.listviewSwitch.click();
         }
     }
