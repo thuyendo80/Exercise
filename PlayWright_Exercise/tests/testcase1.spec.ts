@@ -3,7 +3,6 @@ import { HomePage } from "../pages-objects/home.page"
 import { ShoppingPage } from "../pages-objects/shopping.page"
 import { CheckOutPage } from "../pages-objects/checkout.page"
 import { OrderStatusPage } from "../pages-objects/orderStatus.page"
-import { BillingInfo } from "../pages-objects/checkout.page"
 
 test("Verify users can buy an item successfully", async ({ page }) => {
     const homePage = new HomePage(page);
