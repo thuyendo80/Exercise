@@ -1,6 +1,6 @@
 import { expect, Locator, Page } from "@playwright/test";
 
-interface BillingInfo {
+export interface BillingInfo {
     firstname: string;
     lastname: string;
     country: string;
