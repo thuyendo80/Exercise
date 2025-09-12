@@ -15,7 +15,7 @@ export class HomePage {
     }
 
     async navigate() {
-        await this.page.goto("https://demo.testarchitect.com/");
+        await this.page.goto('/');
         await this.closeButton.click();
     }
 

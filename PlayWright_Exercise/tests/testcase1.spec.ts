@@ -3,12 +3,23 @@ import { HomePage } from "../pages-objects/home.page"
 import { ShoppingPage } from "../pages-objects/shopping.page"
 import { CheckOutPage } from "../pages-objects/checkout.page"
 import { OrderStatusPage } from "../pages-objects/orderStatus.page"
+import { BillingInfo } from "../pages-objects/checkout.page"
 
 test("Verify users can buy an item successfully", async ({ page }) => {
     const homePage = new HomePage(page);
     const shoppingPage = new ShoppingPage(page);
     const checkOutPage = new CheckOutPage(page);
     const orderStatusPage = new OrderStatusPage(page);
+
+    let billInfo: BillingInfo = {
+        firstname: 'Thuyen',
+        lastname: 'Do',
+        country: 'Vietnam',
+        address: '123 Ly Thuong Kiet',
+        city: 'Ho Chi Minh',
+        email: 'thuyen.do@email.com',
+        phone: '0919123456',
+    }
 
     await homePage.navigate();
 
@@ -30,12 +41,7 @@ test("Verify users can buy an item successfully", async ({ page }) => {
 
     await expect(page).toHaveTitle('Checkout – TestArchitect Sample Website');
 
-    await checkOutPage.fillBilligDetails('Thuyen', 'Do', 'Vietnam', '123 Ly Thuong Kiet', 'Ho Chi Minh', 'thuyen.do@email.com', '091912346')
+    await checkOutPage.fillBillingDetails(billInfo);
 
-    await page.waitForLoadState();
-
-    await expect(page.getByText('Thank you. Your order has been received.')).toBeVisible();
-    await expect(page.getByText('Citi Bank')).toBeVisible();
-    await expect(page.getByText('1234567890')).toBeVisible();
-    await expect(page.getByRole('row').filter({ hasText: 'Canon i-SENSYS LBP6030W' })).toBeVisible();
+    await orderStatusPage.verifyOrderStatus();
 });
