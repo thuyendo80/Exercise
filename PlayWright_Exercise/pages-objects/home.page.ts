@@ -1,4 +1,5 @@
 import { expect, Locator, Page } from "@playwright/test";
+
 export class HomePage {
     readonly signupButton: Locator;
     readonly alldepartment: Locator;
@@ -6,6 +7,9 @@ export class HomePage {
     readonly closeButton: Locator;
     readonly cart: Locator;
     readonly checkoutButton: Locator;
+    readonly home: Locator;
+    readonly aboutUs: Locator;
+    readonly shop: Locator;
 
     constructor(private page: Page) {
         this.signupButton = page.getByRole('link', { name: 'Log in / Sign up' });
@@ -15,6 +19,9 @@ export class HomePage {
         //this.cart = page.getByRole('link', { name: '1 $' });
         this.cart = page.getByRole('link', { name: /\d\s\$/ });
         this.checkoutButton = page.getByRole('link', { name: 'Checkout' });
+        this.home = page.locator('#menu-main-menu-1').getByRole('link', { name: 'Home' });
+        this.aboutUs = page.locator('#menu-main-menu-1').getByRole('link', { name: 'About Us' });
+        this.shop = page.locator('#menu-main-menu-1').getByRole('link', { name: 'Shop' })
     }
 
     async navigate() {
@@ -28,6 +35,7 @@ export class HomePage {
         const counts = items.length;
 
         await this.alldepartment.click();
+        await this.alldepartment.waitFor();
         await this.alldepartment.click();
 
         for (let i = 0; i < counts; i++) {
@@ -39,5 +47,10 @@ export class HomePage {
 
     async openCart() {
         await this.cart.click();
+        await this.cart.click();
+    }
+
+    async goToPage(page: Locator) {
+        await page.click();
     }
 }

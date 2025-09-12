@@ -8,6 +8,7 @@ export interface BillingInfo {
     city: string;
     email: string;
     phone: string;
+    items: string[];
     zipcode?: string;
     company?: string;
     apartment?: string;

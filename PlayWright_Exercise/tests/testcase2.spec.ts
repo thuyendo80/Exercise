@@ -7,10 +7,11 @@ import { OrderStatusPage } from "../pages-objects/orderStatus.page"
 import { BillingInfo } from "../pages-objects/checkout.page"
 import { ShoppingCart } from "../pages-objects/shoppingCart.page"
 
-test("Verify users can buy an item successfully", async ({ page }) => {
+test("Verify users can buy multiple item successfully", async ({ page }) => {
     const logIn = new LogIn(page);
     const homePage = new HomePage(page);
     const shoppingPage = new ShoppingPage(page);
+    const shoppingCart = new ShoppingCart(page);
     const checkOutPage = new CheckOutPage(page);
     const orderStatusPage = new OrderStatusPage(page);
 
@@ -22,31 +23,31 @@ test("Verify users can buy an item successfully", async ({ page }) => {
         city: 'Ho Chi Minh',
         email: 'thuyen.do@email.com',
         phone: '0919123456',
+        items: ['AirPods', 'Beats Solo3 Wireless On-Ear'],
     }
 
     await homePage.navigate();
 
     await logIn.login('thuyen.do@agest.vn', 'PlaywrightTest123!');
 
-    await homePage.selectItemInNavigation('Electronic Components & Supplies');
+    await homePage.openCart();
 
-    await shoppingPage.switchView('Grid');
-    await expect(shoppingPage.gridviewSwitch).toHaveAttribute('class', /.*active/);
+    await shoppingCart.clearShoppingCart();
 
-    await shoppingPage.switchView('List');
-    await expect(shoppingPage.listviewSwitch).toHaveAttribute('class', /.*active/);
+    await homePage.goToPage(homePage.shop);
 
-    await shoppingPage.addToCart('Canon i-SENSYS LBP6030W');
+    await shoppingPage.addToCart('AirPods');
+    await shoppingPage.addToCart('Beats Solo3 Wireless On-Ear');
 
     await homePage.openCart();
 
-    //await expect(ShoppingCart.itemRow.filter({ hasText: 'Canon i-SENSYS LBP6030W' })).toBeVisible();
+    await expect(shoppingCart.itemRow.filter({ hasText: 'AirPods' })).toBeVisible();
+    await expect(shoppingCart.itemRow.filter({ hasText: 'Beats Solo3 Wireless On-Ear' })).toBeVisible();
 
-    //await checkOutPage.proceedToCheckout();
-
-    await expect(page).toHaveTitle('Checkout – TestArchitect Sample Website');
+    await shoppingCart.proceedToCheckout();
 
     await checkOutPage.fillBillingDetails(billInfo);
 
-    await orderStatusPage.verifyOrderStatus();
+    await orderStatusPage.verifyOrderStatus(billInfo);
+
 });

@@ -23,6 +23,7 @@ test("Verify users can buy an item successfully", async ({ page }) => {
         city: 'Ho Chi Minh',
         email: 'thuyen.do@email.com',
         phone: '0919123456',
+        items: ['Canon i-SENSYS LBP6030W'],
     }
 
     await homePage.navigate();
@@ -33,7 +34,7 @@ test("Verify users can buy an item successfully", async ({ page }) => {
 
     await shoppingCart.clearShoppingCart();
 
-    /*await homePage.selectItemInNavigation('Electronic Components & Supplies');
+    await homePage.selectItemInNavigation('Electronic Components & Supplies');
 
     await shoppingPage.switchView('Grid');
     await expect(shoppingPage.gridviewSwitch).toHaveAttribute('class', /.*active/);
@@ -53,6 +54,6 @@ test("Verify users can buy an item successfully", async ({ page }) => {
 
     await checkOutPage.fillBillingDetails(billInfo);
 
-    await orderStatusPage.verifyOrderStatus();
-    */
+    await orderStatusPage.verifyOrderStatus(billInfo);
+
 });
