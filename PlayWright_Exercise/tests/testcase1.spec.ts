@@ -19,7 +19,6 @@ test("Verify users can buy an item successfully", async ({ page }) => {
     await shoppingPage.switchView('Grid');
     await expect(shoppingPage.gridviewSwitch).toHaveAttribute('class', /.*active/);
 
-    await page.waitForTimeout(2000);
     await shoppingPage.switchView('List');
     await expect(shoppingPage.listviewSwitch).toHaveAttribute('class', /.*active/);
 

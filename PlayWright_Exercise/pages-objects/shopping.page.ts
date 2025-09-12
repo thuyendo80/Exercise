@@ -17,11 +17,12 @@ export class ShoppingPage {
     }
 
     async switchView(view: 'Grid' | 'List') {
-        console.log(view);
         if (view === 'Grid') {
-            this.gridviewSwitch.click();
+            await this.page.waitForTimeout(1000);
+            await this.gridviewSwitch.click();
         } else {
-            this.listviewSwitch.click();
+            await this.page.waitForTimeout(1000);
+            await this.listviewSwitch.click();
         }
     }
 
