@@ -10,6 +10,7 @@ export class HomePage {
     readonly home: Locator;
     readonly aboutUs: Locator;
     readonly shop: Locator;
+    readonly myAccount: Locator;
 
     constructor(private page: Page) {
         this.signupButton = page.getByRole('link', { name: 'Log in / Sign up' });
@@ -21,7 +22,8 @@ export class HomePage {
         this.checkoutButton = page.getByRole('link', { name: 'Checkout' });
         this.home = page.locator('#menu-main-menu-1').getByRole('link', { name: 'Home' });
         this.aboutUs = page.locator('#menu-main-menu-1').getByRole('link', { name: 'About Us' });
-        this.shop = page.locator('#menu-main-menu-1').getByRole('link', { name: 'Shop' })
+        this.shop = page.locator('#menu-main-menu-1').getByRole('link', { name: 'Shop' });
+        this.myAccount = page.getByRole('link', { name: 'thuyen.do' });
     }
 
     async navigate() {
@@ -46,6 +48,7 @@ export class HomePage {
     }
 
     async openCart() {
+        await this.page.waitForLoadState();
         await this.cart.click();
         await this.cart.click();
     }

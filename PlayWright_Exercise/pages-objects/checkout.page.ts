@@ -121,10 +121,17 @@ export class CheckOutPage {
             await this.notes.fill(billinginfo.notes);
         };
 
-        await this.page.getByRole('radio', { name: billinginfo.paymentMethod }).click();
+        await this.page.getByRole('radio', { name: billinginfo.paymentMethod }).setChecked(true);
 
         await this.placeOrder.click();
-    }
+    };
+
+    async getOrderNumber(): Promise<string> {
+        const number: string = await this.page.getByText('Order Number:').innerText({ timeout: 20000 });
+        const orderNo = number.split(' ');
+        const orderNumber = orderNo[orderNo.length - 1]
+        return orderNumber;
+    };
 
     async verifyMandatoryField(mandatoryFields: MandatoryFields) {
         const errorColor = 'rgb(198, 40, 40)'
@@ -138,7 +145,7 @@ export class CheckOutPage {
             });
 
             expect(borderColor).toBe(errorColor);
-        }
+        };
 
         if (mandatoryFields.lastname) {
             await expect(this.page.getByText('Billing Last Name is a required field')).toBeVisible({ timeout: 15000 });

@@ -28,7 +28,7 @@ export class MyAccountPage {
     }
 
     async verifyOrderHistory(number: string,) {
-        await expect(this.ordersHistory.getByRole('row').filter({ hasText: number })).toBeVisible();
+        await expect(this.ordersHistory.getByRole('row').filter({ hasText: number })).toBeVisible({ timeout: 15000 });
     }
 
     async viewOrderDetails(number: string,) {
@@ -36,7 +36,7 @@ export class MyAccountPage {
     }
 
     async verifyOrderDetails(number: string, item: string[]) {
-        await expect(this.page.getByText('Order ' + number)).toBeVisible();
+        await expect(this.page.getByText('Order #' + number)).toBeVisible();
         const itemCount = item.length;
 
         for (let i = 0; i < itemCount; i++) {

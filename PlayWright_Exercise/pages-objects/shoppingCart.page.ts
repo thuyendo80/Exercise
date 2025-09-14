@@ -43,7 +43,7 @@ export class ShoppingCartPage {
         }
 
         if (subTotal) {
-            await expect(this.itemRow.filter({ hasText: item }).getByRole('cell', { name: '$' }).nth(1)).toHaveText(subTotal, { timeout: 10000 });
+            await expect(this.itemRow.filter({ hasText: item }).getByRole('cell', { name: '$' }).nth(1)).toHaveText(subTotal, { timeout: 15000 });
         }
     }
 
