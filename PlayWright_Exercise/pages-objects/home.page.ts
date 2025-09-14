@@ -50,7 +50,7 @@ export class HomePage {
         await this.cart.click();
     }
 
-    async goToPage(page: Locator) {
-        await page.click();
+    async goToPage(item: Locator) {
+        await item.click();
     }
 }
