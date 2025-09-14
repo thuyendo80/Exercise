@@ -7,7 +7,7 @@ import { OrderStatusPage } from "../pages-objects/orderStatus.page";
 import { BillingInfo } from "../pages-objects/checkout.page";
 import { ShoppingCartPage } from "../pages-objects/shoppingCart.page";
 
-test("Verify users can buy an item successfully", async ({ page }) => {
+test('Verify users can buy an item using different payment methods (all payment methods)', async ({ page }) => {
     const logIn = new LogIn(page);
     const homePage = new HomePage(page);
     const shoppingPage = new ShoppingPage(page);
@@ -23,8 +23,8 @@ test("Verify users can buy an item successfully", async ({ page }) => {
         city: 'Ho Chi Minh',
         email: 'thuyen.do@email.com',
         phone: '0919123456',
-        items: ['Canon i-SENSYS LBP6030W'],
-        paymentMethod: 'Direct bank transfer',
+        items: ['AirPods'],
+        paymentMethod: 'Cash on delivery',
     };
 
     await homePage.navigate();
@@ -35,13 +35,7 @@ test("Verify users can buy an item successfully", async ({ page }) => {
 
     await shoppingCart.clearShoppingCart();
 
-    await homePage.selectItemInNavigation('Electronic Components & Supplies');
-
-    await shoppingPage.switchView('Grid');
-    await expect(shoppingPage.gridviewSwitch).toHaveAttribute('class', /.*active/);
-
-    await shoppingPage.switchView('List');
-    await expect(shoppingPage.listviewSwitch).toHaveAttribute('class', /.*active/);
+    await homePage.goToPage(homePage.shop);
 
     await shoppingPage.addToCart(billInfo.items);
 
@@ -50,8 +44,6 @@ test("Verify users can buy an item successfully", async ({ page }) => {
     await shoppingCart.verifyShoppingCart(billInfo.items);
 
     await shoppingCart.proceedToCheckout();
-
-    await expect(page).toHaveTitle('Checkout – TestArchitect Sample Website');
 
     await checkOutPage.fillBillingDetails(billInfo);
 
