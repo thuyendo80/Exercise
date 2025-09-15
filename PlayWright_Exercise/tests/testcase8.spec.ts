@@ -1,13 +1,12 @@
-import { test, expect } from "@playwright/test";
-import { LogIn } from "../pages-objects/login.page";
+import { expect } from "@playwright/test";
 import { HomePage } from "../pages-objects/home.page";
 import { ShoppingPage } from "../pages-objects/shopping.page";
 import { CheckOutPage } from "../pages-objects/checkout.page";
 import { OrderStatusPage } from "../pages-objects/orderStatus.page";
 import { ShoppingCartPage } from "../pages-objects/shoppingCart.page";
+import { test } from '../fixtures/fixtures';
 
-test('Verify users can clear the cart', async ({ page }) => {
-    const logIn = new LogIn(page);
+test('Verify users can clear the cart', async ({ page, logIn }) => {
     const homePage = new HomePage(page);
     const shoppingPage = new ShoppingPage(page);
     const shoppingCart = new ShoppingCartPage(page);
@@ -16,9 +15,7 @@ test('Verify users can clear the cart', async ({ page }) => {
 
     const items = ['Bose SoundLink Mini', 'Robotic Arm Edge', 'iPad Air 2'];
 
-    await homePage.navigate();
-
-    await logIn.login('thuyen.do@agest.vn', 'PlaywrightTest123!');
+    await logIn();
 
     await homePage.goToPage(homePage.shop);
 

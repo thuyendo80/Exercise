@@ -1,5 +1,4 @@
-import { test, expect } from "@playwright/test";
-import { LogIn } from "../pages-objects/login.page";
+import { expect } from "@playwright/test";
 import { HomePage } from "../pages-objects/home.page";
 import { ShoppingPage } from "../pages-objects/shopping.page";
 import { CheckOutPage } from "../pages-objects/checkout.page";
@@ -7,9 +6,9 @@ import { OrderStatusPage } from "../pages-objects/orderStatus.page";
 import { BillingInfo } from "../pages-objects/checkout.page";
 import { ShoppingCartPage } from "../pages-objects/shoppingCart.page";
 import { MyAccountPage } from "../pages-objects/myAccount.page";
+import { test } from '../fixtures/fixtures';
 
-test('Verify orders appear in order history', async ({ page }) => {
-    const logIn = new LogIn(page);
+test('Verify orders appear in order history', async ({ page, logIn, emptyCart }) => {
     const homePage = new HomePage(page);
     const shoppingPage = new ShoppingPage(page);
     const shoppingCart = new ShoppingCartPage(page);
@@ -41,13 +40,9 @@ test('Verify orders appear in order history', async ({ page }) => {
         paymentMethod: 'Cash on delivery',
     };
 
-    await homePage.navigate();
+    await logIn();
 
-    await logIn.login('thuyen.do@agest.vn', 'PlaywrightTest123!');
-
-    await homePage.openCart();
-
-    await shoppingCart.clearShoppingCart();
+    await emptyCart();
 
     //Order1
     await homePage.goToPage(homePage.shop);

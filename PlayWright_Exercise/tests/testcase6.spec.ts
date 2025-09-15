@@ -1,5 +1,4 @@
 import { test, expect } from "@playwright/test";
-import { LogIn } from "../pages-objects/login.page";
 import { HomePage } from "../pages-objects/home.page";
 import { ShoppingPage } from "../pages-objects/shopping.page";
 import { CheckOutPage } from "../pages-objects/checkout.page";
@@ -8,7 +7,6 @@ import { BillingInfo } from "../pages-objects/checkout.page";
 import { ShoppingCartPage } from "../pages-objects/shoppingCart.page";
 
 test('Verify users try to buy an item without logging in (As a guest)', async ({ page }) => {
-    const logIn = new LogIn(page);
     const homePage = new HomePage(page);
     const shoppingPage = new ShoppingPage(page);
     const shoppingCart = new ShoppingCartPage(page);

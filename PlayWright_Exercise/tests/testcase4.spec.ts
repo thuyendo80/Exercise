@@ -1,16 +1,13 @@
-import { test, expect } from "@playwright/test";
-import { LogIn } from "../pages-objects/login.page";
+import { expect } from "@playwright/test";
 import { HomePage } from "../pages-objects/home.page";
 import { ShoppingPage } from "../pages-objects/shopping.page";
+import { test } from '../fixtures/fixtures';
 
-test('Verify users can sort items by price', async ({ page }) => {
-    const logIn = new LogIn(page);
+test('Verify users can sort items by price', async ({ page, logIn }) => {
     const homePage = new HomePage(page);
     const shoppingPage = new ShoppingPage(page);
 
-    await homePage.navigate();
-
-    await logIn.login('thuyen.do@agest.vn', 'PlaywrightTest123!');
+    await logIn();
 
     await homePage.goToPage(homePage.shop);
 
