@@ -41,8 +41,6 @@ export class HomePage {
         await this.alldepartment.click();
 
         for (let i = 0; i < counts; i++) {
-            let regex: RegExp = new RegExp(items[i]);
-            //await this.page.getByRole('link', { name: regex }).click();
             await this.page.getByRole('listitem').filter({ hasText: items[i] }).click();
         }
     }

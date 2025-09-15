@@ -20,8 +20,7 @@ export class ShoppingCartPage {
         const removeButtons = await this.itemTable.getByRole('link', { name: 'Remove' }).all();
         const buttonCounts = removeButtons.length;
 
-        for (let i = buttonCounts - 1; i >= 0; i--) {
-            const remove = removeButtons[i];
+        for (const remove of removeButtons.reverse()) {
             await remove.click();
         }
     }
@@ -36,10 +35,7 @@ export class ShoppingCartPage {
 
     async verifyItemDetails(item: string, quantity?: string, subTotal?: string) {
         if (quantity) {
-            //const qtyTextbox = this.itemRow.filter({ hasText: item }).getByRole('spinbutton', { name: item + ' quantity' });
-            //const qty = await qtyTextbox.inputValue();
             await expect(this.itemRow.filter({ hasText: item }).getByRole('spinbutton', { name: item + ' quantity' })).toHaveValue(quantity);
-            //expect(qty).toEqual(quantity);
         }
 
         if (subTotal) {

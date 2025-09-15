@@ -1,38 +1,37 @@
-import { expect } from "@playwright/test";
-import { HomePage } from "../pages-objects/home.page";
-import { ShoppingPage } from "../pages-objects/shopping.page";
-import { ShoppingCartPage } from "../pages-objects/shoppingCart.page";
-import { test } from '../fixtures/fixtures';
+import { test, expect } from '../fixtures/fixtures';
 
-test('Verify users can update quantity of product in cart', async ({ page, logIn, emptyCart }) => {
-    const homePage = new HomePage(page);
-    const shoppingPage = new ShoppingPage(page);
-    const shoppingCart = new ShoppingCartPage(page);
+test('Verify users can update quantity of product in cart',
+    async ({
+        homePage,
+        shoppingPage,
+        shoppingCartPage,
+        logIn,
+        emptyCart,
+    }) => {
+        const items = ['AirPods'];
 
-    const items = ['AirPods'];
+        await logIn();
 
-    await logIn();
+        await emptyCart();
 
-    await emptyCart();
+        await homePage.goToPage(homePage.shop);
 
-    await homePage.goToPage(homePage.shop);
+        await shoppingPage.addToCart(items);
 
-    await shoppingPage.addToCart(items);
+        await homePage.openCart();
 
-    await homePage.openCart();
+        await shoppingCartPage.verifyItemDetails(items[0], '1');
 
-    await shoppingCart.verifyItemDetails(items[0], '1');
+        await shoppingCartPage.clickPlusQuanity(items[0]);
 
-    await shoppingCart.clickPlusQuanity(items[0]);
+        await shoppingCartPage.verifyItemDetails(items[0], '2');
 
-    await shoppingCart.verifyItemDetails(items[0], '2');
+        await shoppingCartPage.enterQuanity(items[0], '4');
 
-    await shoppingCart.enterQuanity(items[0], '4');
+        await shoppingCartPage.verifyItemDetails(items[0], '4', '$1,160.00');
 
-    await shoppingCart.verifyItemDetails(items[0], '4', '$1,160.00');
+        await shoppingCartPage.clickMinusQuanity(items[0]);
 
-    await shoppingCart.clickMinusQuanity(items[0]);
+        await shoppingCartPage.verifyItemDetails(items[0], '3', '$870.00');
 
-    await shoppingCart.verifyItemDetails(items[0], '3', '$870.00');
-
-});
+    });
