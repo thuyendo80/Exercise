@@ -11,7 +11,7 @@ test('Verify orders appear in order history',
         logIn,
         emptyCart,
     }) => {
-        let billInfo1: BillingInfo = {
+        const billInfo1: BillingInfo = {
             firstname: 'Thuyen',
             lastname: 'Do',
             country: 'Vietnam',
@@ -23,7 +23,7 @@ test('Verify orders appear in order history',
             paymentMethod: 'Check payments',
         };
 
-        let billInfo2: BillingInfo = {
+        const billInfo2: BillingInfo = {
             firstname: 'aa',
             lastname: 'bbb',
             country: 'Vietnam',

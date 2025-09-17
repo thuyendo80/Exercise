@@ -213,6 +213,10 @@ export class CheckOutPage {
             expect(borderColor).toBe(errorColor);
         };
     };
+
+    async verifyCheckoutPageVisible() {
+        await expect(this.page).toHaveTitle('Checkout – TestArchitect Sample Website');
+    };
 };
 
 

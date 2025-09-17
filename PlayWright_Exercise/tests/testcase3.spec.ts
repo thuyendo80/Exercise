@@ -11,7 +11,7 @@ test('Verify users can buy an item using different payment methods (all payment 
         logIn,
         emptyCart,
     }) => {
-        let billInfo: BillingInfo = {
+        const billInfo: BillingInfo = {
             firstname: 'Thuyen',
             lastname: 'Do',
             country: 'Vietnam',

@@ -38,9 +38,9 @@ export class ProductDetailsPage {
     }
 
     async verifyReview(star: '1' | '2' | '3' | '4' | '5', review: string) {
-        const newReview: Locator = this.page.getByText('Rated ' + star + ' out of 5 Your review is awaiting approval ' + review);
+        const newReview: Locator = this.page.getByText(`Rated ${star} out of 5 Your review is awaiting approval ${review}`);
         await expect(newReview).toBeVisible();
-        await expect(newReview.getByRole('img', { name: 'Rated ' + star + ' out of 5' })).toBeVisible();
+        await expect(newReview.getByRole('img', { name: `Rated ${star} out of 5` })).toBeVisible();
     }
 }
 

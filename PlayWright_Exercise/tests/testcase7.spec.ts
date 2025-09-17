@@ -10,7 +10,7 @@ test('Ensure proper error handling when mandatory fields are blank',
         checkoutPage,
         logIn,
     }) => {
-        let billInfo: BillingInfo = {
+        const billInfo: BillingInfo = {
             firstname: 'Thuyen',
             lastname: 'Do',
             country: 'Vietnam',
@@ -20,7 +20,7 @@ test('Ensure proper error handling when mandatory fields are blank',
             paymentMethod: 'Cash on delivery',
         };
 
-        let mandatoryfields: MandatoryFields = {
+        const mandatoryfields: MandatoryFields = {
             address: 'check',
             phone: 'check',
         };

@@ -1,7 +1,9 @@
 import { test, expect } from '../fixtures/fixtures';
+import { SortCategory } from '../type/enum';
 
 test('Verify users can sort items by price',
     async ({
+        page,
         homePage,
         shoppingPage,
         logIn,
@@ -12,11 +14,11 @@ test('Verify users can sort items by price',
 
         await shoppingPage.switchView('List');
 
-        await shoppingPage.sortItems('Sort by price: low to high');
+        await shoppingPage.sortItems(SortCategory.PRICE);
 
-        await shoppingPage.verifySortItems('low to high');
+        await shoppingPage.verifySortItems(SortCategory.PRICE);
 
-        await shoppingPage.sortItems('Sort by price: high to low');
+        await shoppingPage.sortItems(SortCategory.PRICEDESC);
 
-        await shoppingPage.verifySortItems('high to low');
+        await shoppingPage.verifySortItems(SortCategory.PRICEDESC);
     });

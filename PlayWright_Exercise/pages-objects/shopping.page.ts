@@ -1,4 +1,5 @@
 import { expect, Locator, Page } from "@playwright/test";
+import { SortCategory } from '../type/enum';
 
 export class ShoppingPage {
     readonly gridviewSwitch: Locator;
@@ -9,19 +10,27 @@ export class ShoppingPage {
         this.gridviewSwitch = page.locator('.switch-grid');
         this.listviewSwitch = page.locator('.switch-list');
         this.sortCombobox = page.getByRole('combobox', { name: 'Shop order' });
-    }
+    };
 
     async switchView(view: 'Grid' | 'List') {
         if (view === 'Grid') {
-            await this.page.waitForTimeout(2000);
-            await this.page.waitForLoadState();
+            await this.page.waitForLoadState('domcontentloaded');
             await this.gridviewSwitch.click();
+            await this.page.waitForURL(/view_mode=grid/);
         } else {
-            await this.page.waitForTimeout(2000);
-            await this.page.waitForLoadState();
+            await this.page.waitForLoadState('domcontentloaded');
             await this.listviewSwitch.click();
-        }
-    }
+            await this.page.waitForURL(/view_mode=list/);
+        };
+    };
+
+    async verifyViewSwitched(view: 'Grid' | 'List') {
+        if (view === 'Grid') {
+            await expect(this.gridviewSwitch).toHaveAttribute('class', /.*active/);
+        } else {
+            await expect(this.listviewSwitch).toHaveAttribute('class', /.*active/);
+        };
+    };
 
     async addToCart(item: string[]) {
         const itemCount = item.length;
@@ -29,23 +38,27 @@ export class ShoppingPage {
         for (let i = 0; i < itemCount; i++) {
             let regex: RegExp = new RegExp('Add.*' + item[i]);
             await this.page.getByRole('link', { name: regex }).nth(1).click();
+        };
+    };
+
+    async sortItems(sortCategory: SortCategory) {
+        await this.page.waitForLoadState('domcontentloaded');
+        await this.sortCombobox.selectOption(sortCategory);
+        await this.page.waitForLoadState('domcontentloaded');
+        await this.page.waitForURL(/orderby/);
+
+        switch (sortCategory) {
+            case SortCategory.PRICE:
+                await this.page.waitForURL(/orderby=price/);
+                break;
+            case SortCategory.PRICEDESC:
+                await this.page.waitForURL(/orderby=price-desc/);
+                break;
         }
-    }
+    };
 
-    async sortItems(value: string) {
-        await this.sortCombobox.selectOption(value);
-
-        //page did not navigate to new url after selectoption. tried dispatchevent('change') but not work
-        //have to workaround to navigate to page sorted by
-        if (value === 'Sort by price: low to high') {
-            await this.page.goto('https://demo.testarchitect.com/shop/?orderby=price');
-        } else if (value === 'Sort by price: high to low') {
-            await this.page.goto('https://demo.testarchitect.com/shop/?orderby=price-desc');
-        }
-    }
-
-    async verifySortItems(type: 'low to high' | 'high to low') {
-        await this.page.waitForLoadState();
+    async verifySortItems(sortCategory: SortCategory) {
+        await this.page.waitForLoadState('domcontentloaded');
         const priceValues = await this.page.locator('span.price').all();
         const priceCounts = priceValues.length;
 
@@ -58,16 +71,19 @@ export class ShoppingPage {
             const temp2 = nextPrice.split(' ');
             const price2: number = +temp2[temp2.length - 1].substring(1).replace(',', '');
 
-            if (type === 'low to high') {
-                expect(price1).toBeLessThanOrEqual(price2);
-            } else if (type === 'high to low') {
-                expect(price1).toBeGreaterThanOrEqual(price2);
-            }
-        }
-    }
+            switch (sortCategory) {
+                case SortCategory.PRICE:
+                    expect(price1).toBeLessThanOrEqual(price2);
+                    break;
+                case SortCategory.PRICEDESC:
+                    expect(price1).toBeGreaterThanOrEqual(price2);
+                    break;
+            };
+        };
+    };
 
     async selectProduct(item: string) {
         await this.page.getByRole('link', { name: item, exact: true }).click();
-    }
-}
+    };
+};
 

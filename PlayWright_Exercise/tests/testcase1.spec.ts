@@ -12,7 +12,7 @@ test("Verify users can buy an item successfully",
         logIn,
         emptyCart,
     }) => {
-        let billInfo: BillingInfo = {
+        const billInfo: BillingInfo = {
             firstname: 'Thuyen',
             lastname: 'Do',
             country: 'Vietnam',
@@ -31,10 +31,10 @@ test("Verify users can buy an item successfully",
         await homePage.selectItemInNavigation('Electronic Components & Supplies');
 
         await shoppingPage.switchView('Grid');
-        await expect(shoppingPage.gridviewSwitch).toHaveAttribute('class', /.*active/);
+        await shoppingPage.verifyViewSwitched('Grid');
 
         await shoppingPage.switchView('List');
-        await expect(shoppingPage.listviewSwitch).toHaveAttribute('class', /.*active/);
+        await shoppingPage.verifyViewSwitched('List');
 
         await shoppingPage.addToCart(billInfo.items);
 
@@ -44,7 +44,7 @@ test("Verify users can buy an item successfully",
 
         await shoppingCartPage.proceedToCheckout();
 
-        await expect(page).toHaveTitle('Checkout – TestArchitect Sample Website');
+        await checkoutPage.verifyCheckoutPageVisible();
 
         await checkoutPage.fillBillingDetails(billInfo);
 

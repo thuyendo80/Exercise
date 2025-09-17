@@ -9,7 +9,7 @@ test('Verify users try to buy an item without logging in (As a guest)',
         orderStatusPage,
         checkoutPage,
     }) => {
-        let billInfo: BillingInfo = {
+        const billInfo: BillingInfo = {
             firstname: 'Thuyen',
             lastname: 'Do',
             country: 'Vietnam',

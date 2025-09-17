@@ -11,7 +11,7 @@ test("Verify users can buy multiple item successfully",
         logIn,
         emptyCart,
     }) => {
-        let billInfo: BillingInfo = {
+        const billInfo: BillingInfo = {
             firstname: 'Thuyen',
             lastname: 'Do',
             country: 'Vietnam',

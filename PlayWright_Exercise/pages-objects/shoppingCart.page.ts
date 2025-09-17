@@ -16,7 +16,7 @@ export class ShoppingCartPage {
     }
 
     async clearShoppingCart() {
-        await expect(this.page.getByText('Shopping cart Checkout Order')).toBeVisible();
+        await this.page.getByText('Shopping cart Checkout Order').waitFor({ state: 'visible' });
         const removeButtons = await this.itemTable.getByRole('link', { name: 'Remove' }).all();
         const buttonCounts = removeButtons.length;
 
@@ -44,15 +44,15 @@ export class ShoppingCartPage {
     }
 
     async clickMinusQuanity(item: string) {
-        await this.page.waitForLoadState();
+        await this.page.waitForLoadState('domcontentloaded');
         await this.itemRow.filter({ hasText: item }).locator('span.minus').click();
-        await this.page.waitForLoadState();
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async clickPlusQuanity(item: string) {
-        await this.page.waitForLoadState();
+        await this.page.waitForLoadState('domcontentloaded');
         await this.itemRow.filter({ hasText: item }).locator('span.plus').click();
-        await this.page.waitForLoadState();
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async enterQuanity(item: string, quantity: string) {
