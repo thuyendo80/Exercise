@@ -32,15 +32,9 @@ export class HomePage {
     }
 
     async selectItemInNavigation(item: string) {
-        const items = item.split('/');
-        const counts = items.length;
-
         await this.page.waitForLoadState('domcontentloaded');
         await this.alldepartment.click();
-
-        for (let i = 0; i < counts; i++) {
-            await this.page.getByRole('listitem').filter({ hasText: items[i] }).click();
-        }
+        await this.page.getByRole('listitem').filter({ hasText: item }).click();
     }
 
     async openCart() {
