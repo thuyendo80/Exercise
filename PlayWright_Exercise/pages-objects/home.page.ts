@@ -17,7 +17,6 @@ export class HomePage {
         this.alldepartment = page.getByText("All departments");
         this.electronic = page.getByRole('link', { name: ' Electronic Components &' });
         this.closeButton = page.getByRole("button", { name: "Close" });
-        //this.cart = page.getByRole('link', { name: '1 $' });
         this.cart = page.getByRole('link', { name: /\d\s\$/ });
         this.checkoutButton = page.getByRole('link', { name: 'Checkout' });
         this.home = page.locator('#menu-main-menu-1').getByRole('link', { name: 'Home' });
@@ -45,7 +44,7 @@ export class HomePage {
     }
 
     async openCart() {
-        await this.page.waitForLoadState();
+        await this.page.waitForLoadState('domcontentloaded');
         await this.cart.click();
         await this.cart.click();
     }
