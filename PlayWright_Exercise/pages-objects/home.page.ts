@@ -36,8 +36,7 @@ export class HomePage {
         const items = item.split('/');
         const counts = items.length;
 
-        await this.alldepartment.click();
-        await this.alldepartment.waitFor();
+        await this.page.waitForLoadState('domcontentloaded');
         await this.alldepartment.click();
 
         for (let i = 0; i < counts; i++) {
