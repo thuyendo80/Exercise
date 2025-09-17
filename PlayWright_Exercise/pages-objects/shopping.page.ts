@@ -13,6 +13,8 @@ export class ShoppingPage {
     };
 
     async switchView(view: 'Grid' | 'List') {
+        await this.page.waitForLoadState('domcontentloaded');
+
         if (view === 'Grid') {
             await this.page.waitForLoadState('domcontentloaded');
             await this.gridviewSwitch.click();
